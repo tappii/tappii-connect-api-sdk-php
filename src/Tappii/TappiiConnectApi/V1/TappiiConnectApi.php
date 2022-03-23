@@ -13,6 +13,30 @@ class TappiiConnectApi
         $this->access_token = $accessToken;
     }
 
+    public function getTouchInfo(string $code): ?Touch
+    {
+        $endpoint = self::endpoint;
+        $version = self::version;
+
+        $curl = curl_init("$endpoint/$version/touch/$code/info");
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json; charset=UTF-8",
+            "Authorization: Bearer $this->access_token",
+        ]);
+        $json = curl_exec($curl);
+        curl_close($curl);
+
+        $data = json_decode($json);
+        if (!isset($data->tag_id) || !isset($data->friend_id) || !isset($data->accessed_at)) {
+            return null;
+        }
+
+        return new Touch($data->tag_id, $data->friend_id, $data->accessed_at);
+    }
+
     public function getTags(): Tags
     {
         $endpoint = self::endpoint;
