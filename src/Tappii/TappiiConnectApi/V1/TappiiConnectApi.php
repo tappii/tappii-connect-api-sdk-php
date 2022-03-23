@@ -127,7 +127,14 @@ class TappiiConnectApi
         $tag = null;
         $data = json_decode($json);
         if (isset($data->id) && isset($data->redirect_url)) {
-            $tag = new Tag($data->id, $name, TagType::NFC->value, $description, $issuance_limit ?? 0, TagMotion::None->value);
+            $tag = new Tag(
+                $data->id,
+                $name,
+                TagType::NFC->value,
+                $description,
+                $issuance_limit ?? 0,
+                TagMotion::None->value);
+            $tag->redirect_url = $data->redirect_url;
         }
 
         return $tag;
@@ -172,6 +179,7 @@ class TappiiConnectApi
                     "redirect_url" => $redirect_irl,
                     "external" => $external,
                 ]);
+            $tag->redirect_url = $data->redirect_url;
         }
 
         return $tag;
