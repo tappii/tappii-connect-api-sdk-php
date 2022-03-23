@@ -5,6 +5,7 @@ namespace Tappii\TappiiConnectApi\V1;
 class Tag
 {
     public readonly string $id;
+    public readonly string $redirect_url;
     public readonly TagType $type;
     public readonly string $name;
     public readonly ?string $description;
@@ -12,9 +13,10 @@ class Tag
     public readonly TagMotion $motion;
     public readonly ?array $detail; // TODO
 
-    public function __construct(string $id, string $type, string $name, ?string $description, int $issuance_limit, string $motion, ?array $detail = null)
+    public function __construct(string $id, string $redirect_url, string $type, string $name, ?string $description, int $issuance_limit, string $motion, ?array $detail = null)
     {
         $this->id = $id;
+        $this->redirect_url = $redirect_url;
         $this->name = $name;
         $this->description = $description;
         $this->issuance_limit = $issuance_limit;
