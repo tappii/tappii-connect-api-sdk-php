@@ -4,7 +4,7 @@ namespace Tappii\TappiiConnectApi\V1;
 
 class TappiiConnectApi
 {
-    private const endpoint = "https://tappii.mao.barcode-dev.xyz";
+    private const endpoint = "https://tappii.link";
     private const version = "v1";
     private readonly string $access_token;
 
